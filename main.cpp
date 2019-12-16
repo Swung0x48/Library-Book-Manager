@@ -9,9 +9,7 @@
 
 int main()
 {
-    printf("Hello world");
-
-
     print_info();
+
     return 0;
 }

@@ -7,5 +7,5 @@
 
 void print_info()
 {
-    printf("Hello from the other side!!!");
+    printf("Hello!!!");
 }
