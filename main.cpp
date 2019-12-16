@@ -9,7 +9,7 @@
 
 int main()
 {
-
     print_info();
+
     return 0;
 }
