@@ -7,8 +7,11 @@
 #include "file_io.h"
 #include "kb_io.h"
 
+struct Book * head;
+
 int main()
 {
+
     print_info();
 
     return 0;
