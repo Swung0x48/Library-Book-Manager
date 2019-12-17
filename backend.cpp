@@ -15,14 +15,17 @@ struct Date
 
 struct Book
 {
-    int num;
+    struct Book * prev = NULL;
+    int No;
     char ISBN[20];
     char name[20];
     char author[20];
     struct Date date;
     double price;
-    struct Book *next;
+    struct Book * next = NULL;
 };
+
+
 
 int isISBNCorrect(char ISBN[20], int WillCorrect)
 {
@@ -72,62 +75,100 @@ int isISBNCorrect(char ISBN[20], int WillCorrect)
     return 2;
 }
 
-void InputBookInfo(FILE * file, struct Book * cur)
+void InputBookInfo(FILE * fileR, struct Book * cur)
 {
-    fscanf(file, "%s", cur->ISBN);
-    fscanf(file, "%s", cur->name);
-    fscanf(file, "%s", cur->author);
-    fscanf(file, "%d", &cur->date.year);
-    fscanf(file, "%d", &cur->date.month);
-    fscanf(file, "%d", &cur->date.day);
-    fscanf(file, "%lf", &cur->price);
+    fscanf(fileR, "%s", cur->ISBN);
+    fscanf(fileR, "%s", cur->name);
+    fscanf(fileR, "%s", cur->author);
+    fscanf(fileR, "%d/%d/%d", &cur->date.year, &cur->date.month, &cur->date.day);
+    fscanf(fileR, "%lf", &cur->price);
 }
 
-void OutputList(FILE * file, struct Book * head)
+void OutputList(FILE * fileW, struct Book * head)
 {
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
-        fprintf(file, "%s %s %s %d/%d/%d\n", cur->ISBN, cur->name, cur->author, cur->date.year, cur->date.month, cur->date.day);
+        fprintf(fileW, "%s %s %s %d/%d/%d\n",
+                cur->ISBN,
+                cur->name,
+                cur->author,
+                cur->date.year, cur->date.month, cur->date.day);
     }
-    fprintf(file, "0");
+    fprintf(fileW, "0");
 }
 
-
-struct Book * CreateList(FILE * file)
+void OutputItem(FILE * fileW, struct Book * cur)
 {
-    struct Book *cur,
-                *head;
+    fprintf(fileW, "%s %s %s %d/%d/%d\n",
+            cur->ISBN,
+            cur->name,
+            cur->author,
+            cur->date.year, cur->date.month, cur->date.day);
+}
+
+int QueryByNo(FILE * fileR, struct Book * head, int No)
+{
+    for (struct Book * cur = head; cur != NULL; cur = cur->next)
+    {
+        if (cur->No == No)
+        {
+            printf("找到1条记录\n");
+            OutputItem(stdout, cur);
+            return 1;
+        }
+    }
+    return 0;
+}
+
+struct Book * CreateList(FILE * fileR)
+{
+    struct Book *cur = NULL,
+                *head = NULL;
 
     int tmp;
-    fscanf(file, "%d", &tmp);
+    fscanf(fileR, "%d", &tmp);
 
-    if (head == NULL)
+    if (cur == NULL)
     {
         if (tmp != 0)
         {
             cur = (struct Book *) malloc(sizeof(struct Book));
             head = cur;
-            cur->num = tmp;
-            InputBookInfo(file, cur);
-            fscanf(file, "%d", &tmp);
+            cur->No = tmp;
+            InputBookInfo(fileR, cur);
+            fscanf(fileR, "%d", &tmp);
         }
         else
             return NULL;
-        }
-    else
-    {
-        while (tmp != 0)
-        {
-            cur->next = (struct Book *) malloc(sizeof(struct Book));
-            cur = cur->next;
-            cur->num = tmp;
-            InputBookInfo(file, cur);
-
-            fscanf(file, "%d", &tmp);
-        }
     }
 
+    while (tmp != 0)
+    {
+        cur->next = (struct Book *) malloc(sizeof(struct Book));
+        cur->next->prev = cur;
+        cur = cur->next;
+        cur->No = tmp;
+        InputBookInfo(fileR, cur);
+
+        fscanf(fileR, "%d", &tmp);
+
+    }
 
     return head;
 }
 
+struct Book * DeleteItem(struct Book * cur)
+{
+    cur->prev = cur->next;
+    free(cur);
+}
+
+struct Book * DeleteList(struct Book * cur)
+{
+    cur->prev = NULL;
+    for (struct Book * p = cur->next; cur != NULL; cur = cur->next)
+    {
+        free(cur->prev);
+    }
+    free(cur);
+}

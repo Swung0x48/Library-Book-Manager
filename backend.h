@@ -8,10 +8,12 @@
 #include <stdio.h>
 
 int isISBNCorrect(char ISBN[20], int WillCorrect);
-void InputBookInfo(FILE * file, struct Book * cur);
-void OutputList(FILE * file, struct Book * head);
-struct Book * CreateList(FILE * file);
-
+//void InputBookInfo(FILE * fileR, struct Book * cur);
+void OutputList(FILE * fileW, struct Book * head);
+struct Book * CreateList(FILE * fileR);
+struct Book * DeleteItem(struct Book * cur);
+struct Book * DeleteList(struct Book * cur);
+void OutputItem(FILE * fileW, struct Book * cur);
 
 
 #endif //P1_BACKEND_H
