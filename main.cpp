@@ -14,5 +14,23 @@ int main()
 
     print_info();
 
+    CreateList(stdin);
+    /*
+    char opt;
+
+    opt = getchar();
+
+    switch(opt)
+    {
+        case '1': OutputList(stdout, head); break;
+        case '2':
+
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '0':
+    }
+     */
     return 0;
 }

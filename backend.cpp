@@ -75,11 +75,14 @@ int isISBNCorrect(char ISBN[20], int WillCorrect)
     return 2;
 }
 
-void InputBookInfo(FILE * fileR, struct Book * cur)
+void InputBookInfotoStruct(FILE * fileR, struct Book * cur)
 {
     fscanf(fileR, "%s", cur->ISBN);
+    getchar();
     fscanf(fileR, "%s", cur->name);
+    getchar();
     fscanf(fileR, "%s", cur->author);
+    getchar();
     fscanf(fileR, "%d/%d/%d", &cur->date.year, &cur->date.month, &cur->date.day);
     fscanf(fileR, "%lf", &cur->price);
 }
@@ -135,7 +138,7 @@ struct Book * CreateList(FILE * fileR)
             cur = (struct Book *) malloc(sizeof(struct Book));
             head = cur;
             cur->No = tmp;
-            InputBookInfo(fileR, cur);
+            InputBookInfotoStruct(fileR, cur);
             fscanf(fileR, "%d", &tmp);
         }
         else
@@ -148,7 +151,7 @@ struct Book * CreateList(FILE * fileR)
         cur->next->prev = cur;
         cur = cur->next;
         cur->No = tmp;
-        InputBookInfo(fileR, cur);
+        InputBookInfotoStruct(fileR, cur);
 
         fscanf(fileR, "%d", &tmp);
 
@@ -160,15 +163,33 @@ struct Book * CreateList(FILE * fileR)
 struct Book * DeleteItem(struct Book * cur)
 {
     cur->prev = cur->next;
-    free(cur);
+    cur = cur->next;
+    free(cur->prev);
+    return cur;
 }
 
 struct Book * DeleteList(struct Book * cur)
 {
+    struct Book * tail;
+    tail = cur;
     cur->prev = NULL;
     for (struct Book * p = cur->next; cur != NULL; cur = cur->next)
     {
         free(cur->prev);
     }
     free(cur);
+
+    return tail;
 }
+
+/*struct Book * AddItem(struct Book * head)
+{
+    struct Book * cur;
+    cur = head;
+
+    if (cur == NULL)
+    {
+
+    }
+}
+*/
