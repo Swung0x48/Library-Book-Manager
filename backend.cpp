@@ -5,6 +5,7 @@
 #include "backend.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Date
 {
@@ -78,14 +79,41 @@ int isISBNCorrect(char ISBN[20], int WillCorrect)
 void SwapNode(struct Book * * a, struct Book * * b)
 {
     struct Book * tmp = NULL;
+    tmp = (struct Book *) malloc(sizeof(struct Book));
 
-    tmp->prev = (*a)->prev;
-    (*a)->prev = (*b)->prev;
-    (*b)->prev = tmp->prev;
+    tmp->No = (*a)->No;
+    (*a)->No = (*b)->No;
+    (*b)->No = tmp->No;
 
-    tmp->next = (*a)->next;
-    (*a)->next = (*b)->next;
-    (*b)->next = tmp->next;
+    strcpy(tmp->ISBN, (*a)->ISBN);
+    strcpy((*a)->ISBN, (*b)->ISBN);
+    strcpy((*b)->ISBN, tmp->ISBN);
+
+    strcpy(tmp->name, (*a)->name);
+    strcpy((*a)->name, (*b)->name);
+    strcpy((*b)->name, tmp->name);
+
+    strcpy(tmp->author, (*a)->author);
+    strcpy((*a)->author, (*b)->author);
+    strcpy((*b)->author, tmp->author);
+
+    tmp->date.year = (*a)->date.year;
+    (*a)->date.year = (*b)->date.year;
+    (*b)->date.year = tmp->date.year;
+
+    tmp->date.month = (*a)->date.month;
+    (*a)->date.month = (*b)->date.month;
+    (*b)->date.month = tmp->date.month;
+
+    tmp->date.day = (*a)->date.day;
+    (*a)->date.day = (*b)->date.day;
+    (*b)->date.day = tmp->date.day;
+
+    tmp->price = (*a)->price;
+    (*a)->price = (*b)->price;
+    (*b)->price = tmp->price;
+
+    free(tmp);
 }
 
 void InputBookInfotoStruct(FILE * fileR, struct Book * cur)
@@ -103,23 +131,19 @@ void InputBookInfotoStruct(FILE * fileR, struct Book * cur)
 void OutputList(FILE * fileW, struct Book * head)
 {
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
-    {
-        fprintf(fileW, "%s %s %s %d/%d/%d\n",
-                cur->ISBN,
-                cur->name,
-                cur->author,
-                cur->date.year, cur->date.month, cur->date.day);
-    }
+        OutputItem(fileW, cur);
     fprintf(fileW, "0");
 }
 
 void OutputItem(FILE * fileW, struct Book * cur)
 {
-    fprintf(fileW, "%s %s %s %d/%d/%d\n",
+    fprintf(fileW, "%d %s %s %s %d/%d/%d %.2lf\n",
+            cur->No,
             cur->ISBN,
             cur->name,
             cur->author,
-            cur->date.year, cur->date.month, cur->date.day);
+            cur->date.year, cur->date.month, cur->date.day,
+            cur->price);
 }
 
 int QueryByNo(FILE * fileR, struct Book * head, int No)
@@ -186,7 +210,7 @@ struct Book * DeleteList(struct Book * cur)
     struct Book * tail;
     tail = cur;
     cur->prev = NULL;
-    for (struct Book * p = cur->next; cur != NULL; cur = cur->next)
+    for (struct Book * cur = cur->next; cur != NULL; cur = cur->next)
     {
         free(cur->prev);
     }
@@ -198,9 +222,9 @@ struct Book * DeleteList(struct Book * cur)
 
 void BubbleSort(struct Book * head)
 {
-    for (struct Book * i = head; i->next != NULL; i = i->next)
+    for (struct Book * i = head; i->next->next != NULL; i = i->next)
     {
-        for (struct Book * j = head; j != i->prev; j = j->next)
+        for (struct Book * j = head; j != i->prev; j = j->next)   //end-loop condition has problems
         {
             if (j->No > j->next->No)
                 SwapNode(&j, &(j->next));

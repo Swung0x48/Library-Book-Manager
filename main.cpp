@@ -12,10 +12,12 @@ struct Book * head;
 int main()
 {
 
-    print_info();
+    //print_info();
 
-    CreateList(stdin);
-    /*
+    head = CreateList(stdin);
+    BubbleSort(head);
+    OutputList(stdout, head);
+            /*
     char opt;
 
     opt = getchar();
