@@ -15,6 +15,7 @@ struct Book * DeleteItem(struct Book * cur);
 struct Book * DeleteList(struct Book * cur);
 void OutputItem(FILE * fileW, struct Book * cur);
 int QueryByNo(FILE * fileR, struct Book * head, int No);
+void BubbleSort(struct Book * head);
 
 
 #endif //P1_BACKEND_H
