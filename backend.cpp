@@ -19,7 +19,7 @@ struct Book
     char ISBN[20];
     char name[20];
     char author[20];
-    struct Date;
+    struct Date date;
     double price;
     struct Book *next;
 };
@@ -72,6 +72,62 @@ int isISBNCorrect(char ISBN[20], int WillCorrect)
     return 2;
 }
 
+void InputBookInfo(FILE * file, struct Book * cur)
+{
+    fscanf(file, "%s", cur->ISBN);
+    fscanf(file, "%s", cur->name);
+    fscanf(file, "%s", cur->author);
+    fscanf(file, "%d", &cur->date.year);
+    fscanf(file, "%d", &cur->date.month);
+    fscanf(file, "%d", &cur->date.day);
+    fscanf(file, "%lf", &cur->price);
+}
+
+void OutputList(FILE * file, struct Book * head)
+{
+    for (struct Book * cur = head; cur != NULL; cur = cur->next)
+    {
+        fprintf(file, "%s %s %s %d/%d/%d\n", cur->ISBN, cur->name, cur->author, cur->date.year, cur->date.month, cur->date.day);
+    }
+    fprintf(file, "0");
+}
 
 
+struct Book * CreateList(FILE * file)
+{
+    struct Book *cur,
+                *head;
+
+    int tmp;
+    fscanf(file, "%d", &tmp);
+
+    if (head == NULL)
+    {
+        if (tmp != 0)
+        {
+            cur = (struct Book *) malloc(sizeof(struct Book));
+            head = cur;
+            cur->num = tmp;
+            InputBookInfo(file, cur);
+            fscanf(file, "%d", &tmp);
+        }
+        else
+            return NULL;
+        }
+    else
+    {
+        while (tmp != 0)
+        {
+            cur->next = (struct Book *) malloc(sizeof(struct Book));
+            cur = cur->next;
+            cur->num = tmp;
+            InputBookInfo(file, cur);
+
+            fscanf(file, "%d", &tmp);
+        }
+    }
+
+
+    return head;
+}
 
