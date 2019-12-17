@@ -75,6 +75,19 @@ int isISBNCorrect(char ISBN[20], int WillCorrect)
     return 2;
 }
 
+void SwapNode(struct Book * * a, struct Book * * b)
+{
+    struct Book * tmp = NULL;
+
+    tmp->prev = (*a)->prev;
+    (*a)->prev = (*b)->prev;
+    (*b)->prev = tmp->prev;
+
+    tmp->next = (*a)->next;
+    (*a)->next = (*b)->next;
+    (*b)->next = tmp->next;
+}
+
 void InputBookInfotoStruct(FILE * fileR, struct Book * cur)
 {
     fscanf(fileR, "%s", cur->ISBN);
@@ -182,6 +195,19 @@ struct Book * DeleteList(struct Book * cur)
     return tail;
 }
 
+
+void BubbleSort(struct Book * head)
+{
+    for (struct Book * i = head; i->next != NULL; i = i->next)
+    {
+        for (struct Book * j = head; j != i->prev; j = j->next)
+        {
+            if (j->No > j->next->No)
+                SwapNode(&j, &(j->next));
+        }
+    }
+
+}
 /*struct Book * AddItem(struct Book * head)
 {
     struct Book * cur;
