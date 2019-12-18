@@ -233,7 +233,7 @@ struct Book * DeleteList(struct Book * cur)
     return tail;
 }
 
-struct Book * DeleteBooksByNo(struct Book * head, int No) //OK
+struct Book * DeleteBooksByNo(struct Book * head, int No)
 {
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
