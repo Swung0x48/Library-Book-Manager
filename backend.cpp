@@ -132,7 +132,7 @@ void OutputList(FILE * fileW, struct Book * head)
 {
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
         OutputItem(fileW, cur);
-    fprintf(fileW, "0");
+    //fprintf(fileW, "0");
 }
 
 void OutputItem(FILE * fileW, struct Book * cur)
@@ -152,7 +152,6 @@ int QueryByNo(FILE * fileR, struct Book * head, int No)
     {
         if (cur->No == No)
         {
-            printf("找到1条记录\n");
             OutputItem(stdout, cur);
             return 1;
         }
@@ -199,9 +198,24 @@ struct Book * CreateList(FILE * fileR)
 
 struct Book * DeleteItem(struct Book * cur)
 {
-    cur->prev = cur->next;
-    cur = cur->next;
-    free(cur->prev);
+    if (cur->prev == NULL)
+    {
+        cur->next->prev = NULL;
+        free(cur);
+    }
+    else if (cur->next == NULL)
+    {
+        cur->prev->next = NULL;
+        free(cur);
+    }
+    else
+    {
+        cur->prev->next = cur->next;
+        cur->next->prev = cur->prev;
+        struct Book * tmp = cur;
+        cur = cur->next;
+        free(tmp);
+    }
     return cur;
 }
 
@@ -219,27 +233,82 @@ struct Book * DeleteList(struct Book * cur)
     return tail;
 }
 
-
-void BubbleSort(struct Book * head)
+struct Book * DeleteBooksByNo(struct Book * head, int No)
 {
-    for (struct Book * i = head; i->next->next != NULL; i = i->next)
+    for (struct Book * cur = head; cur->next != NULL; cur = cur->next)
     {
-        for (struct Book * j = head; j != i->prev; j = j->next)   //end-loop condition has problems
+        if (cur->No == No)
+            DeleteItem(cur);
+    }
+    return head;
+}
+
+
+void BubbleSortByNo(struct Book * head, char op)
+{
+    bool isSwapped = true;
+    while (isSwapped) {
+        isSwapped = false;
+        if (op == '>')
         {
-            if (j->No > j->next->No)
-                SwapNode(&j, &(j->next));
+            for (struct Book *cur = head; cur->next != NULL; cur = cur->next) {
+                if (cur->No < cur->next->No)
+                {
+                    isSwapped = true;
+                    SwapNode(&cur, &cur->next);
+                }
+            }
+        }
+        else if (op == '<')
+        {
+            for (struct Book *cur = head; cur->next != NULL; cur = cur->next) {
+                if (cur->No > cur->next->No)
+                {
+                    isSwapped = true;
+                    SwapNode(&cur, &cur->next);
+                }
+            }
         }
     }
 
 }
-/*struct Book * AddItem(struct Book * head)
+
+void BubbleSortByPrice(struct Book * head)
 {
-    struct Book * cur;
+    int isSwapped = 1;
+    while (isSwapped)
+    {
+        isSwapped = 0;
+        for (struct Book * cur = head; cur->next != NULL; cur = cur->next)
+        {
+            if (cur->price > cur->next->price)
+            {
+                isSwapped = 1;
+                SwapNode(&cur, &cur->next);
+            }
+        }
+    }
+
+}
+
+//InputBookInfotoStruct(fileR, head);
+struct Book * AddBooks(FILE * fileR, struct Book * head)
+{
+    struct Book * cur = NULL;
     cur = head;
 
-    if (cur == NULL)
+    int tmp;
+
+    while (1)
     {
+        fscanf(fileR, "%d", &tmp);
+        if(tmp == 0) return cur;
+        cur->prev = (struct Book *) malloc(sizeof(struct Book));
+        cur->prev->next = cur;
+        cur = cur->prev;
+        cur->No = tmp;
+        InputBookInfotoStruct(fileR, cur);
 
     }
+
 }
-*/
