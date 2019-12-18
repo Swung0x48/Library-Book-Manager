@@ -235,7 +235,7 @@ struct Book * DeleteList(struct Book * cur)
 
 struct Book * DeleteBooksByNo(struct Book * head, int No)
 {
-    for (struct Book * cur = head; cur->next != NULL; cur = cur->next)
+    for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
         if (cur->No == No)
             DeleteItem(cur);

@@ -18,6 +18,7 @@ int main()
     BubbleSortByNo(head, '>');
     OutputList(stdout, head);
 
+    printf("\n");
 
     head = DeleteBooksByNo(head, 5);
     OutputList(stdout, head);
