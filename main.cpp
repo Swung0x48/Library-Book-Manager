@@ -15,8 +15,13 @@ int main()
     //print_info();
 
     head = CreateList(stdin);
-    BubbleSort(head);
+    BubbleSortByNo(head, '>');
     OutputList(stdout, head);
+
+
+    head = DeleteBooksByNo(head, 5);
+    OutputList(stdout, head);
+
             /*
     char opt;
 
