@@ -152,11 +152,11 @@ int QueryByNo(FILE * fileR, struct Book * head, int No)
     {
         if (cur->No == No)
         {
-            OutputItem(stdout, cur);
-            return 1;
+            OutputItem(fileR, cur);
+            return 0;
         }
     }
-    return 0;
+    return 1;
 }
 
 struct Book * CreateList(FILE * fileR)
