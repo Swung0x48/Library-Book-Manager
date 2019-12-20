@@ -33,7 +33,7 @@
   
   ---
   
-  `void OutputList(FILE * fileW, struct Book * head);`
+#####  `void OutputList(FILE * fileW, struct Book * head);`
   
   输出指定的书籍列表到标准输出或指定的文件流。
   
@@ -49,7 +49,7 @@
   
   ---
   
-  `struct Book * CreateList(FILE * fileR);`
+#####  `struct Book * CreateList(FILE * fileR);`
   
   从标准输入或指定的文件流创建书籍列表。
   
@@ -63,7 +63,7 @@
   
   ---
   
-  `void OutputItem(FILE * fileW, struct Book * cur);` [1]
+#####  `void OutputItem(FILE * fileW, struct Book * cur);` [1]
   
   将指定的某本书籍信息输出到指定的文件流或标准输出。
   
@@ -79,7 +79,7 @@
   
   ---
   
-  `int QueryByNo(FILE * fileR, struct Book * head, int No);`
+#####  `int QueryByNo(FILE * fileR, struct Book * head, int No);`
   
   通过图书在系统的编号查询某本书，并输出到指定的文件流或标准输出。
   
@@ -101,7 +101,7 @@
   
   ---
   
-  `void BubbleSortByNo(struct Book * head, char op);`
+#####  `void BubbleSortByNo(struct Book * head, char op);`
   
   以编号为依据对书籍列表进行排序。
   
@@ -121,7 +121,7 @@
   
   ---
   
-  `struct Book * AddBooks(FILE * fileR, struct Book * head);` [2]
+#####  `struct Book * AddBooks(FILE * fileR, struct Book * head);` [2]
   
   从指定的文件流或标准输入读入书籍列表并添加进已有列表。
   
@@ -137,7 +137,7 @@
   
   ---
   
-  `struct Book * DeleteBooksByNo(struct Book * head, int No);` [2]
+#####  `struct Book * DeleteBooksByNo(struct Book * head, int No);` [2]
   
 ##### 参数：
   
