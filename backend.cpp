@@ -67,7 +67,7 @@ int isISBNCorrect(char ISBN[20], int WillCorrect)
             else
                 ISBN[12] = 'X';
 
-            return 0;
+            return 1;
         }
         else
             return 0;

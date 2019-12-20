@@ -11,6 +11,9 @@ struct Book * head;
 
 int main()
 {
+#ifdef WINVER
+    system("chcp 65001");
+#endif
 
     //print_info();
 
@@ -23,22 +26,6 @@ int main()
     head = DeleteBooksByNo(head, 5);
     OutputList(stdout, head);
 
-            /*
-    char opt;
 
-    opt = getchar();
-
-    switch(opt)
-    {
-        case '1': OutputList(stdout, head); break;
-        case '2':
-
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '0':
-    }
-     */
     return 0;
 }
