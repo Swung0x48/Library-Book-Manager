@@ -134,7 +134,6 @@ int OutputList(FILE * fileW, struct Book * head)
 {
     int cnt = 1;
     struct Book * prev = head;
-    OutputLabel();
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
         OutputItem(fileW, cur);
