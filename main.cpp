@@ -11,20 +11,16 @@ struct Book * head;
 
 int main()
 {
-#ifdef WINVER
-    system("chcp 65001");
-#endif
 
-    //print_info();
+
+    print_info();
 
     head = CreateList(stdin);
-    BubbleSortByNo(head, '>');
+    BubbleSortByNo(head, '<');
     OutputList(stdout, head);
 
     printf("\n");
 
-    head = DeleteBooksByNo(head, 5);
-    OutputList(stdout, head);
 
 
     return 0;

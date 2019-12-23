@@ -3,6 +3,8 @@
 //
 
 #include "backend.h"
+#include "ui.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -128,16 +130,23 @@ void InputBookInfotoStruct(FILE * fileR, struct Book * cur)
     fscanf(fileR, "%lf", &cur->price);
 }
 
-void OutputList(FILE * fileW, struct Book * head)
+int OutputList(FILE * fileW, struct Book * head)
 {
+    int cnt = 1;
+    struct Book * prev = head;
+    OutputLabel();
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
+    {
         OutputItem(fileW, cur);
-    //fprintf(fileW, "0");
+    }
 }
+
+
+
 
 void OutputItem(FILE * fileW, struct Book * cur)
 {
-    fprintf(fileW, "%d %s %s %s %d/%d/%d %.2lf\n",
+    fprintf(fileW, "%2.d    %s    %s    %s    %2.d/%2.d/%2.d    %.2lf\n",
             cur->No,
             cur->ISBN,
             cur->name,
@@ -312,3 +321,5 @@ struct Book * AddBooks(FILE * fileR, struct Book * head)
     }
 
 }
+
+
