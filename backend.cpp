@@ -139,56 +139,92 @@ int OutputListToFile(FILE * fileW, struct Book * head)
     }
 }
 
-
-int OutputListToScreen(struct Book * head)
+int PrevIndex(int a2)
 {
-    int cnt = 1;
-    int ShouldPrev = 0;
+    int m = a2 * 2 % 10 / 2;
+    if (m == 0)
+        m = 5;
+    int a1 = a2 - m + 1;
+
+    return a1;
+}
+int OutputListToScreen(struct Book * head) {
+    int cnt = 0;
+    int getPrev = 0;
+
+    struct Book *cur = head;
 
     OutputLabel();
-    for (struct Book * cur = head; cur != NULL; cur = cur->next)
-    {
+    for (; cur != NULL; cur = cur->next) {
 
-        if (ShouldPrev == 1)
-        {
-            ShouldPrev = 0;
+        if (getPrev == 1) {
+            getPrev = 0;
             cur = cur->prev;
+            //cnt = 0;
         }
         OutputItem(stdout, cur);
         cnt++;
 
-        if (cnt % 5 == 1)
-        {
-            printf("Showing Item %d - %d.\n", cnt - 5, cnt - 1);
+        if (cnt % 5 == 0 || cur->next == NULL) {
+            printf("Showing Item %d - %d.\n", PrevIndex(cnt), cnt);
             OutputPagePrompt();
             getchar();
             char opt = getchar();
             system("clear");
 
-            switch (opt)
-            {
+            switch (opt) {
                 case 'w':
-                    for (int i = 1; i < 10; i++)
-                    {
-                        if (cur != head)
+                    for (int i = 0; i < (cnt - PrevIndex(cnt) + 5); i++) {
+                        if (cur != head) {
                             cur = cur->prev;
+                            //if(i % 2)   cnt--;
+                        }
                         else
                             cur = head;
-                            ShouldPrev = 1;
+                        getPrev = 1;
                     }
-                    cnt -= 10;
+                    //cnt -= 10;
+                    cnt = PrevIndex(cnt) - 5;
                     OutputLabel();
-                break;
+                    break;
                 case 's':
                     //prev = cur;
                     OutputLabel();
-                break;
+                    break;
                 default:
                     return 0;
             }
         }
     }
 }
+
+    /*printf("Showing Item %d - %d.\n", cnt - (cnt % 5) + 1, cnt - 1);
+    OutputPagePrompt();
+    char opt = getchar();
+    system("clear");
+
+    switch (opt)
+    {
+        case 'w':
+            for (int i = 1; i < (cnt % 5) - 1; i++) {
+                if (cur != head)
+                    cur = cur->prev;
+                else
+                    cur = head;
+                ShouldPrev = 1;
+            }
+            cnt -= 10;
+            OutputLabel();
+            break;
+        case 's':
+            //prev = cur;
+            OutputLabel();
+            break;
+        default:
+            return 0;
+    }
+*/
+
 
 
 
