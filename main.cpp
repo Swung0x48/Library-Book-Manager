@@ -17,13 +17,28 @@ int main()
 ///test
     while (1)
     {
-        print_info();
+        
 
         head = CreateList(stdin);
         BubbleSortByNo(head, '<');
-        OutputListToScreen(head);
+        //OutputListToScreen(head);
+
+
+		print_info();
 
         printf("\n");
+
+
+		switch ()
+		{
+			case 1:
+			{
+				OutputListToScreen(head);
+				break;
+			}
+
+		}
+
 
         return 0;
     }
