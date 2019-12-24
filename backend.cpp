@@ -184,12 +184,13 @@ int OutputListToScreen(struct Book * head) {
                         getPrev = 1;
                     }
                     //cnt -= 10;
-                    cnt = PrevIndex(cnt) - 5;
+                    cnt = PrevIndex(cnt) - 6;
                     OutputLabel();
                     break;
                 case 's':
                     //prev = cur;
                     OutputLabel();
+
                     break;
                 default:
                     return 0;
