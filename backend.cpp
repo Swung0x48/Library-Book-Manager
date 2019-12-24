@@ -130,16 +130,118 @@ void InputBookInfotoStruct(FILE * fileR, struct Book * cur)
     fscanf(fileR, "%lf", &cur->price);
 }
 
-int OutputList(FILE * fileW, struct Book * head)
+int OutputListToFile(FILE * fileW, struct Book * head)
 {
-    int cnt = 1;
     struct Book * prev = head;
-    OutputLabel();
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
         OutputItem(fileW, cur);
     }
+    return 0;
 }
+
+int PrevIndex(int a2)
+{
+    int m = a2 * 2 % 10 / 2;
+    if (m == 0)
+        m = 5;
+    int a1 = a2 - m + 1;
+
+    return a1;
+}
+int OutputListToScreen(struct Book * head) {
+    int cnt = 0;
+    int getPrev = 0;
+
+    struct Book *cur = head;
+
+    OutputLabel();
+    for (; cur != NULL; cur = cur->next) {
+
+        if (cnt < 0)
+            cnt = 0;
+
+        if (getPrev == 1) {
+            getPrev = 0;
+            cur = cur->prev;
+            //cnt = 0;
+        }
+        OutputItem(stdout, cur);
+        cnt++;
+
+        if (cnt % 5 == 0 || cur->next == NULL) {
+            printf("Showing Item %d - %d.\n", PrevIndex(cnt), cnt);
+            OutputPagePrompt();
+            getchar();
+            char opt = getchar();
+            system("clear");
+
+            switch (opt) {
+                case 'w':
+                    for (int i = 0; i < (cnt - PrevIndex(cnt) + 5); i++) {
+                        if (cur != head) {
+                            cur = cur->prev;
+                            //if(i % 2)   cnt--;
+                        }
+                        else
+                            cur = head;
+                        getPrev = 1;
+                    }
+                    //cnt -= 10;
+                    cnt = PrevIndex(cnt) - 5 - 1;
+                    OutputLabel();
+                    break;
+                case 's':
+                    //prev = cur;
+                    OutputLabel();
+                    if (cur->next == NULL)
+                    {
+                        for (int i = 0; i < (cnt - PrevIndex(cnt)); i++) {
+                            if (cur != head) {
+                                cur = cur->prev;
+                                //if(i % 2)   cnt--;
+                            }
+                            else
+                                cur = head;
+                            getPrev = 1;
+                        }
+                        //cnt -= 10;
+                        cnt = PrevIndex(cnt) - 1;
+                    }
+                    break;
+                default:
+                    return 0;
+            }
+        }
+    }
+}
+
+    /*printf("Showing Item %d - %d.\n", cnt - (cnt % 5) + 1, cnt - 1);
+    OutputPagePrompt();
+    char opt = getchar();
+    system("clear");
+
+    switch (opt)
+    {
+        case 'w':
+            for (int i = 1; i < (cnt % 5) - 1; i++) {
+                if (cur != head)
+                    cur = cur->prev;
+                else
+                    cur = head;
+                ShouldPrev = 1;
+            }
+            cnt -= 10;
+            OutputLabel();
+            break;
+        case 's':
+            //prev = cur;
+            OutputLabel();
+            break;
+        default:
+            return 0;
+    }
+*/
 
 
 
@@ -201,6 +303,8 @@ struct Book * CreateList(FILE * fileR)
         fscanf(fileR, "%d", &tmp);
 
     }
+    head->prev = NULL;
+    cur->next = NULL;
 
     return head;
 }
@@ -255,15 +359,15 @@ struct Book * DeleteBooksByNo(struct Book * head, int No)
 
 void BubbleSortByNo(struct Book * head, char op)
 {
-    bool isSwapped = true;
+    int isSwapped = 1;
     while (isSwapped) {
-        isSwapped = false;
+        isSwapped = 0;
         if (op == '>')
         {
             for (struct Book *cur = head; cur->next != NULL; cur = cur->next) {
                 if (cur->No < cur->next->No)
                 {
-                    isSwapped = true;
+                    isSwapped = 1;
                     SwapNode(&cur, &cur->next);
                 }
             }
@@ -282,25 +386,37 @@ void BubbleSortByNo(struct Book * head, char op)
 
 }
 
-void BubbleSortByPrice(struct Book * head)
+void BubbleSortByPrice(struct Book * head, char op)
 {
     int isSwapped = 1;
     while (isSwapped)
     {
         isSwapped = 0;
-        for (struct Book * cur = head; cur->next != NULL; cur = cur->next)
+        if (op == '>')
         {
-            if (cur->price > cur->next->price)
-            {
-                isSwapped = 1;
-                SwapNode(&cur, &cur->next);
+            for (struct Book *cur = head; cur->next != NULL; cur = cur->next) {
+                if (cur->price < cur->next->price)
+                {
+                    isSwapped = 1;
+                    SwapNode(&cur, &cur->next);
+                }
+            }
+        }
+        else if (op == '<')
+        {
+            for (struct Book *cur = head; cur->next != NULL; cur = cur->next) {
+                if (cur->price > cur->next->price)
+                {
+                    isSwapped = true;
+                    SwapNode(&cur, &cur->next);
+                }
             }
         }
     }
 
 }
 
-//InputBookInfotoStruct(fileR, head);
+
 struct Book * AddBooks(FILE * fileR, struct Book * head)
 {
     struct Book * cur = NULL;

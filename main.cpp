@@ -11,17 +11,22 @@ struct Book * head;
 
 int main()
 {
+	//testsfdafd
 
 
-    print_info();
+///test
+    while (1)
+    {
+        print_info();
 
-    head = CreateList(stdin);
-    BubbleSortByNo(head, '<');
-    OutputList(stdout, head);
+        head = CreateList(stdin);
+        BubbleSortByNo(head, '<');
+        OutputListToScreen(head);
 
-    printf("\n");
+        printf("\n");
+
+        return 0;
+    }
 
 
-
-    return 0;
 }
