@@ -137,6 +137,7 @@ int OutputListToFile(FILE * fileW, struct Book * head)
     {
         OutputItem(fileW, cur);
     }
+    return 0;
 }
 
 int PrevIndex(int a2)
@@ -156,6 +157,9 @@ int OutputListToScreen(struct Book * head) {
 
     OutputLabel();
     for (; cur != NULL; cur = cur->next) {
+
+        if (cnt < 0)
+            cnt = 0;
 
         if (getPrev == 1) {
             getPrev = 0;
@@ -184,13 +188,26 @@ int OutputListToScreen(struct Book * head) {
                         getPrev = 1;
                     }
                     //cnt -= 10;
-                    cnt = PrevIndex(cnt) - 6;
+                    cnt = PrevIndex(cnt) - 5 - 1;
                     OutputLabel();
                     break;
                 case 's':
                     //prev = cur;
                     OutputLabel();
-
+                    if (cur->next == NULL)
+                    {
+                        for (int i = 0; i < (cnt - PrevIndex(cnt)); i++) {
+                            if (cur != head) {
+                                cur = cur->prev;
+                                //if(i % 2)   cnt--;
+                            }
+                            else
+                                cur = head;
+                            getPrev = 1;
+                        }
+                        //cnt -= 10;
+                        cnt = PrevIndex(cnt) - 1;
+                    }
                     break;
                 default:
                     return 0;
