@@ -24,8 +24,22 @@ int main()
 
 		print_info();
 
-
         printf("\n");
+
+
+		switch ()
+		{
+			case 1：
+			{
+
+			};
+			case 2:
+			{
+
+			};
+		}
+
+
 
         return 0;
     }
