@@ -12,16 +12,18 @@ struct Book * head;
 int main()
 {
 
+    while (1)
+    {
+        print_info();
 
-    print_info();
+        head = CreateList(stdin);
+        BubbleSortByNo(head, '<');
+        OutputListToScreen(head);
 
-    head = CreateList(stdin);
-    BubbleSortByNo(head, '<');
-    OutputList(stdout, head);
+        printf("\n");
 
-    printf("\n");
-
+        return 0;
+    }
 
 
-    return 0;
 }
