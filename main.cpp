@@ -13,6 +13,8 @@ int main()
 {
 	//testsfdafd
 
+
+///test
     while (1)
     {
 		printf("请输入初始数据（输入结束后请键入 0）\n");
