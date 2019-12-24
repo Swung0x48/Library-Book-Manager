@@ -303,6 +303,8 @@ struct Book * CreateList(FILE * fileR)
         fscanf(fileR, "%d", &tmp);
 
     }
+    head->prev = NULL;
+    cur->next = NULL;
 
     return head;
 }
