@@ -9,6 +9,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef _WIN32
+#define CLEARPAGE system("cls")
+#endif
+
+#ifdef _UNIX
+#define CLEARPAGE system("clear")
+#endif
+
 struct Date
 {
     int year;
@@ -174,7 +182,8 @@ int OutputListToScreen(struct Book * head) {
             OutputPagePrompt();
             getchar();
             char opt = getchar();
-            system("clear");
+            //system("clear");
+            CLEARPAGE;
 
             switch (opt) {
                 case 'w':
