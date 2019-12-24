@@ -25,28 +25,44 @@
   
   当前ISBN是否正确。**可能的值：`0` ， `1` 或 `2`**
   
-  `0` - 当前ISBN不正确， 且未被更正。
+  `0` - 当前ISBN不正确，且未被更正。
   
-  `1` - 当前ISBN正确， 或已被更正为正确的值。
+  `1` - 当前ISBN正确，或已被更正为正确的值。
   
   `2` - 未知错误。
   
   ---
   
-#####  `void OutputList(FILE * fileW, struct Book * head);`
+#####  `int OutputListToFile(FILE * fileW, struct Book * head);`
   
-  输出指定的书籍列表到标准输出或指定的文件流。
+  输出指定的书籍列表到<del>标准输出</del>或指定的文件流。
+  
+  若要写入到标准输出，请使用`int OutputListToScreen(head);`。
   
 #####  参数：
   
-  `FILE * fileW` - 指定要输出到的文件流。 对于标准输出， 请传入`stdout`。
+  `FILE * fileW` - 指定要输出到的文件流。 <del>对于标准输出， 请传入`stdout`。</del> 请不要传入标准输出！
   
   `struct Book * head` - 传入要输出的图书列表的头指针。
   
 #####  返回值：
 
-  无返回值。
+  若成功返回`0`。
   
+  ---
+  
+#####  `int OutputListToScreen(head);`
+
+  输出指定的书籍列表到标准输出或指定的文件流。
+  
+#####  参数：
+    
+   `struct Book * head` - 传入要输出的图书列表的头指针。
+    
+#####  返回值：
+  
+   无返回值。
+    
   ---
   
 #####  `struct Book * CreateList(FILE * fileR);`
