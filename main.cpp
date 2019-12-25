@@ -6,7 +6,6 @@
 #include "ui.h"
 #include "backend.h"
 #include "file_io.h"
-#include "kb_io.h"
 #include <zconf.h>
 #include <stdlib.h>
 
@@ -59,6 +58,7 @@ int main()
     while (1)
     {
         print_info();
+
 		char sit;
 		sit = getchar();
 		CLEARPAGE;
