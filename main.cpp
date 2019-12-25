@@ -11,12 +11,11 @@
 #include <stdlib.h>
 
 
-
 int main()
 {
     struct Book * head = NULL;
     FILE * fp = NULL;
-    char SortOp;
+    char SortOp = '<';
 	int No;
 
 
@@ -53,13 +52,15 @@ int main()
 		
 		
 		
-        print_info();
+        //print_info();
 
 
     while (1)
     {
+        print_info();
 		char sit;
 		sit=getchar();
+		CLEARPAGE;
 
 		switch(sit)
 		{
@@ -69,8 +70,8 @@ int main()
 				else
 				{
 					printf("图书列表是空的...\n");
-					printf("按任意键返回主菜单\n");
-					getchar();
+					printf("将返回主菜单...\n");
+					sleep(1);
 				}
 				
 
@@ -87,13 +88,30 @@ int main()
 			break;
 
 			case '3':		//排序图书
-				printf("请选择进行升序或者降序排列。升序为'<'，降序为'>'，其他按键返回主菜单。\n");
-				//printf("当前为\n");
+			    getchar();
+				printf("请选择进行升序或者降序排列。升序请键入'<'，降序为'>'，其他按键返回主菜单。\n");
+				printf("当前为 ");
+                if(SortOp == '<')
+                    printf("升序\n");
+                else if (SortOp == '>')
+                    printf("\n");
+
+
 				SortOp = getchar();
+
 				if(SortOp == '<')
-					BubbleSortByNo(head, '<');
+				{
+                    printf("已更改为升序\n");
+                    BubbleSortByNo(head, '<');
+                    CLEARPAGE;
+                }
 				else if (SortOp == '>')
-					BubbleSortByNo(head, '>');
+				{
+                    printf("已更改为降序\n");
+                    BubbleSortByNo(head, '>');
+                    CLEARPAGE;
+                }
+
 				else
 					break;
 				
@@ -104,7 +122,7 @@ int main()
 				printf("请依次输出各书的编号、ISBN、书名、作者名、购买日期、价格，用空格隔开。\n");
 				printf("用回车结束一本书的输入。另起一行输入0回车表示结束输入。\n");
 				head = AddBooks(stdin, head);
-				if(SortOp == '<')
+				if (SortOp == '<')
 					BubbleSortByNo(head, '<');
 				else if (SortOp == '>')
 					BubbleSortByNo(head, '>');
@@ -116,11 +134,15 @@ int main()
 				printf("请输入图书编号\n");
 				scanf("%d",&No);
 				head = DeleteBooksByNo(head, No);
+                if (SortOp == '<')
+                    BubbleSortByNo(head, '<');
+                else if (SortOp == '>')
+                    BubbleSortByNo(head, '>');
 
 			break;
 
 			case '6':		//清空图书列表
-			
+			    DeleteList(head);
 
 			break;
 
@@ -135,10 +157,8 @@ int main()
 
 		}
 
-	
 
-        return 0;
     }
 
-
+    return 0;
 }
