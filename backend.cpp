@@ -323,13 +323,15 @@ struct Book * DeleteItem(struct Book * cur)
 {
     if (cur->prev == NULL)
     {
-        cur->next->prev = NULL;
-        free(cur);
+        cur = cur->next;
+        free(cur->prev);
+        cur->prev = NULL;
     }
     else if (cur->next == NULL)
     {
-        cur->prev->next = NULL;
-        free(cur);
+        cur = cur->prev;
+        free(cur->next);
+        cur->next = NULL;
     }
     else
     {
@@ -344,16 +346,13 @@ struct Book * DeleteItem(struct Book * cur)
 
 struct Book * DeleteList(struct Book * cur)
 {
-    struct Book * tail;
-    tail = cur;
-    cur->prev = NULL;
-    for (struct Book * cur = cur->next; cur != NULL; cur = cur->next)
+    //int TrashCnt = 0;
+    for (; cur != NULL; cur = cur->next)
     {
-        free(cur->prev);
+        DeleteItem(cur);
     }
-    free(cur);
 
-    return tail;
+    return cur;
 }
 
 struct Book * DeleteBooksByNo(struct Book * head, int No)
