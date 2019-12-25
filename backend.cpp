@@ -257,13 +257,13 @@ void OutputItem(FILE * fileW, struct Book * cur)
             cur->price);
 }
 
-int QueryByNo(FILE * fileR, struct Book * head, int No)
+int QueryByNo(FILE * fileW, struct Book * head, int No)
 {
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
         if (cur->No == No)
         {
-            OutputItem(fileR, cur);
+            OutputItem(fileW, cur);
             return 0;
         }
     }

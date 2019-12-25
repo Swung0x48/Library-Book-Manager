@@ -6,3 +6,6 @@
 #define P1_FILE_IO_H
 
 #endif //P1_FILE_IO_H
+
+FILE * WRITE();
+FILE * READ();
