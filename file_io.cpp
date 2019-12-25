@@ -1,16 +1,17 @@
 //
 // Created by Swung 0x48 on 2019/12/16.
+// Collab with 
 //
 
 #include <stdio.h>
 #include <stdlib.h>
 
-FILE *WRITE(struct Book *p)
+FILE *WRITE()
 {
     FILE *fp;
-    if((fp=fopen("Bookdata.txt","wb"))==NULL)
+    if((fp=fopen("Bookdata.txt","w+")) == NULL)
     {
-        printf("cannot open file\n");
+        printf("无法打开文件。\n");
         return NULL;
     }
     return fp;
@@ -20,11 +21,11 @@ FILE *WRITE(struct Book *p)
 FILE *READ()
 {
     FILE *fp;
-    struct Book *head;
-    if((fp=fopen("Bookdata.txt","wb"))==NULL)
+    
+    if((fp=fopen("Bookdata.txt","r")) == NULL)
     {
-        printf("cannot open file\n");
-        exit(0);
+        printf("无法打开文件。\n");
+        return NULL;
     }
     return fp;
 }

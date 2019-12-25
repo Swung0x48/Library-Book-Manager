@@ -23,12 +23,13 @@ struct Book * CreateList(FILE * fileR);
 struct Book * DeleteItem(struct Book * cur);
 struct Book * DeleteList(struct Book * cur);
 void OutputItem(FILE * fileW, struct Book * cur);
-int QueryByNo(FILE * fileR, struct Book * head, int No);
+int QueryByNo(FILE * fileW, struct Book * head, int No);
 void BubbleSortByNo(struct Book * head, char op);
 void BubbleSortByPrice(struct Book * head, char op);
 struct Book * AddBooks(FILE * fileR, struct Book * head);
 struct Book * DeleteBooksByNo(struct Book * head, int No);
 int OutputListtoFile(FILE * fileW, struct Book * head);
+struct Book * DeleteList(struct Book * cur);
 
 
 #endif //BACKEND_H
