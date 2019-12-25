@@ -129,13 +129,14 @@ void SwapNode(struct Book * * a, struct Book * * b)
 void InputBookInfotoStruct(FILE * fileR, struct Book * cur)
 {
     fscanf(fileR, "%s", cur->ISBN);
-    getchar();
+    fgetc(fileR);
     fscanf(fileR, "%s", cur->name);
-    getchar();
+    fgetc(fileR);
     fscanf(fileR, "%s", cur->author);
-    getchar();
+    fgetc(fileR);
     fscanf(fileR, "%d/%d/%d", &cur->date.year, &cur->date.month, &cur->date.day);
     fscanf(fileR, "%lf", &cur->price);
+    fgetc(fileR);
 }
 
 int OutputListToFile(FILE * fileW, struct Book * head)
