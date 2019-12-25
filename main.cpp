@@ -59,7 +59,7 @@ int main()
     {
         print_info();
 		char sit;
-		sit=getchar();
+		sit = getchar();
 		CLEARPAGE;
 
 		switch(sit)
@@ -83,6 +83,7 @@ int main()
 				scanf("%d",&No);
 				printf("以下是查询到的图书：\n");
 				QueryByNo(stdout, head, No);
+				sleep(1);
 			
 
 			break;
@@ -121,7 +122,10 @@ int main()
 			case '4':		//添加记录
 				printf("请依次输出各书的编号、ISBN、书名、作者名、购买日期、价格，用空格隔开。\n");
 				printf("用回车结束一本书的输入。另起一行输入0回车表示结束输入。\n");
-				head = AddBooks(stdin, head);
+				if (head != NULL)
+				    head = AddBooks(stdin, head);
+                else
+                    head = CreateList(stdin);
 				if (SortOp == '<')
 					BubbleSortByNo(head, '<');
 				else if (SortOp == '>')
@@ -142,7 +146,7 @@ int main()
 			break;
 
 			case '6':		//清空图书列表
-			    DeleteList(head);
+			    head = DeleteList(head);
 
 			break;
 

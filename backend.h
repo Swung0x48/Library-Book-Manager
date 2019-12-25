@@ -29,7 +29,6 @@ void BubbleSortByPrice(struct Book * head, char op);
 struct Book * AddBooks(FILE * fileR, struct Book * head);
 struct Book * DeleteBooksByNo(struct Book * head, int No);
 int OutputListtoFile(FILE * fileW, struct Book * head);
-struct Book * DeleteList(struct Book * cur);
 
 
 #endif //BACKEND_H
