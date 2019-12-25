@@ -320,13 +320,14 @@ struct Book * CreateList(FILE * fileR)
     return head;
 }
 
-struct Book * DeleteItem(struct Book * cur)
+int DeleteItem(struct Book * cur)
 {
     if (cur->prev == NULL)
     {
         cur = cur->next;
         free(cur->prev);
         cur->prev = NULL;
+        return 1;
     }
     else if (cur->next == NULL)
     {
@@ -342,7 +343,7 @@ struct Book * DeleteItem(struct Book * cur)
         cur = cur->next;
         free(tmp);
     }
-    return cur;
+    return 0;
 }
 
 struct Book * DeleteList(struct Book * cur)
@@ -361,7 +362,9 @@ struct Book * DeleteBooksByNo(struct Book * head, int No)
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
         if (cur->No == No)
-            DeleteItem(cur);
+            if (DeleteItem(cur) == 1)
+                head = head->next;
+
     }
     return head;
 }

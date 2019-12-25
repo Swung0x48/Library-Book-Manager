@@ -20,7 +20,7 @@ int isISBNCorrect(char ISBN[20], int WillCorrect);
 int OutputListToFile(FILE * fileW, struct Book * head);
 int OutputListToScreen(struct Book * head);
 struct Book * CreateList(FILE * fileR);
-struct Book * DeleteItem(struct Book * cur);
+int DeleteItem(struct Book * cur);
 struct Book * DeleteList(struct Book * cur);
 void OutputItem(FILE * fileW, struct Book * cur);
 int QueryByNo(FILE * fileW, struct Book * head, int No);
