@@ -25,6 +25,9 @@ int main()
 		{
 			fp = READ();
             printf("读取配置文件...\n");
+            head = CreateList(fp);
+            if (head != NULL)
+                BubbleSortByNo(head, '<');
             sleep(1);
 		}
 		else
@@ -43,16 +46,16 @@ int main()
 
 		
 
-		if (fp == NULL)
+		/*if (fp == NULL)
 		{
 			head = CreateList(stdin);
-            BubbleSortByNo(head, '<');
+            //BubbleSortByNo(head, '<');
 		}
 		else
 		{
 			head = CreateList(fp);
-            BubbleSortByNo(head, '<');
-		}
+            //BubbleSortByNo(head, '<');
+		}*/
 		
 		
 		
