@@ -17,6 +17,7 @@ int main()
     FILE * fp = NULL;
     char SortOp = '<';
 	int No;
+    char fileop;
 
 
 		//printf("请输入初始数据（输入结束后请键入 0）\n");
@@ -146,14 +147,29 @@ int main()
 			break;
 
 			case '6':		//清空图书列表
-			    head = DeleteList(head);
-
+			    //head = DeleteList(head);
+                head = NULL;
 			break;
 
 			case '7':		//从文件读取列表/写入当前列表到文件
-			
 
-			break;
+			    FilePrompt();
+			    fileop = getchar();
+			    if (fileop == '1')
+			    {
+
+                    fp = READ();
+                    head = CreateList(fp);
+                    fclose(fp);
+                }
+			    else if (fileop == '2')
+                {
+                    fp = WRITE();
+                    OutputListToFile(fp, head);
+                    fclose(fp);
+
+                }
+            break;
 			
 			case '0':		//退出
 				return 0;

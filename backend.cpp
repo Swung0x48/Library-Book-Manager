@@ -146,6 +146,7 @@ int OutputListToFile(FILE * fileW, struct Book * head)
     {
         OutputItem(fileW, cur);
     }
+    fprintf(fileW, "0");
     return 0;
 }
 
