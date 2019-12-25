@@ -1,9 +1,10 @@
 ﻿#include <stdio.h>
 #include "backend.h"
-
+#include <stdlib.h>
 
 void print_info()
 {
+    CLEARPAGE;
     printf("+ ——————————————————————————————————+\n");
     printf("|           图书信息管理系统           |\n");
 	printf("+ ——————————————————————————————————+\n");
