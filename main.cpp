@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by Swung 0x48 on 2019/12/12.
 // Collab with GhostYouling.
 //
@@ -18,6 +18,7 @@ int main()
 	
     while (1)
     {
+
 		//printf("请输入初始数据（输入结束后请键入 0）\n");
 
 		if (READ() != NULL)
@@ -52,9 +53,6 @@ int main()
         OutputListToScreen(head);*/
 		
 
-		print_info();
-
-        printf("\n");
 
 		char sit;
 		sit=getchar();
