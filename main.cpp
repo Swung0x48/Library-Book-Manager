@@ -7,17 +7,18 @@
 #include "backend.h"
 #include "file_io.h"
 #include "kb_io.h"
+#include <zconf.h>
+#include <stdlib.h>
 
-struct Book * head = NULL;
-FILE * fp = NULL;
-char SortOp;
+
 
 int main()
 {
-	
-	
-    while (1)
-    {
+    struct Book * head = NULL;
+    FILE * fp = NULL;
+    char SortOp;
+	int No;
+
 
 		//printf("请输入初始数据（输入结束后请键入 0）\n");
 
@@ -27,10 +28,15 @@ int main()
 		}
 		else
 		{
+		    CLEARPAGE;
 			printf("文件可能不存在，将新建一个文件。\n");
 			fp = WRITE();
-			
+			fprintf(fp, "0");
 			fclose(fp);
+
+            printf("请按任意键继续...\n");
+            sleep(1);
+            CLEARPAGE;
 		}
 		// TODO : 如果不存在,要求用户用键盘输入数据。 否则，从文件读出数据 
 		// 用 CreateList()
@@ -38,22 +44,20 @@ int main()
 
 		if (fp == NULL)
 		{
-			head=CreateList(stdin);
+			head = CreateList(stdin);
 		}
 		else
 		{
-			CreateList(fp);
+			head = CreateList(fp);
 		}
 		
 		
 		
-        /*head = CreateList(fp);
-		fclose(fp);
-        //BubbleSortByNo(head, '<');
-        OutputListToScreen(head);*/
-		
+        print_info();
 
 
+    while (1)
+    {
 		char sit;
 		sit=getchar();
 
@@ -73,11 +77,11 @@ int main()
 			break;
 
 			case '2':		//查询指定图书
-				int NO;
+
 				printf("请输入图书编号\n");
-				scanf("%d",&NO);
+				scanf("%d",&No);
 				printf("以下是查询到的图书：\n");
-				QueryByNo(stdout, head, NO);
+				QueryByNo(stdout, head, No);
 			
 
 			break;
@@ -108,10 +112,10 @@ int main()
 			break;
 
 			case '5':		//删除记录
-				int NO;
+
 				printf("请输入图书编号\n");
-				scanf("%d",&NO);
-				head = DeleteBooksByNo(head, NO);
+				scanf("%d",&No);
+				head = DeleteBooksByNo(head, No);
 
 			break;
 
