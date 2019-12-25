@@ -24,6 +24,8 @@ int main()
 		if (READ() != NULL)
 		{
 			fp = READ();
+            printf("读取配置文件...\n");
+            sleep(1);
 		}
 		else
 		{
@@ -37,17 +39,19 @@ int main()
             sleep(1);
             CLEARPAGE;
 		}
-		// TODO : 如果不存在,要求用户用键盘输入数据。 否则，从文件读出数据 
-		// 用 CreateList()
+		// TODO : 如果不存在,要求用户用键盘输入数据。 否则，从文件读出数据。（ 调用 CreateList() ）
+
 		
 
 		if (fp == NULL)
 		{
 			head = CreateList(stdin);
+            BubbleSortByNo(head, '<');
 		}
 		else
 		{
 			head = CreateList(fp);
+            BubbleSortByNo(head, '<');
 		}
 		
 		
@@ -84,7 +88,9 @@ int main()
 				scanf("%d",&No);
 				printf("以下是查询到的图书：\n");
 				QueryByNo(stdout, head, No);
-				sleep(1);
+				getchar();
+				printf("按任意键返回主菜单\n");
+				getchar();
 			
 
 			break;
@@ -96,7 +102,7 @@ int main()
                 if(SortOp == '<')
                     printf("升序\n");
                 else if (SortOp == '>')
-                    printf("\n");
+                    printf("降序\n");
 
 
 				SortOp = getchar();
@@ -105,12 +111,14 @@ int main()
 				{
                     printf("已更改为升序\n");
                     BubbleSortByNo(head, '<');
+                    sleep(1);
                     CLEARPAGE;
                 }
 				else if (SortOp == '>')
 				{
                     printf("已更改为降序\n");
                     BubbleSortByNo(head, '>');
+                    sleep(1);
                     CLEARPAGE;
                 }
 
@@ -149,6 +157,8 @@ int main()
 			case '6':		//清空图书列表
 			    //head = DeleteList(head);
                 head = NULL;
+                printf("图书列表已清空\n");
+                sleep(1);
 			break;
 
 			case '7':		//从文件读取列表/写入当前列表到文件
