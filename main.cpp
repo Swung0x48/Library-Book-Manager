@@ -38,7 +38,6 @@ int main()
 			fprintf(fp, "0");
 			fclose(fp);
 
-            printf("请按任意键继续...\n");
             sleep(1);
             CLEARPAGE;
 		}
