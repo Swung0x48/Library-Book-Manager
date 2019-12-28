@@ -1,5 +1,5 @@
 //
-// Created by Swung 0x48 on 2019/12/12.
+// Created by Swung0x48 on 2019/12/12.
 // Collab with GhostYouling.
 //
 #include <stdio.h>
@@ -87,7 +87,7 @@ int main()
                 printf("请输入图书编号\n");
                 scanf("%d", &No);
                 printf("以下是查询到的图书：\n");
-                QueryByNo(stdout, head, No);
+                getBookByNo(stdout, head, No);
                 getchar();
                 printf("按任意键返回主菜单\n");
                 getchar();

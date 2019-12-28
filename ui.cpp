@@ -1,4 +1,7 @@
-﻿#include <stdio.h>
+﻿//
+// Created by xingyang01 on 2019/12/16.
+//
+#include <stdio.h>
 #include "backend.h"
 #include <stdlib.h>
 
@@ -18,9 +21,9 @@ void OutputLabel()
 
 void OutputPagePrompt()
 {
-    printf("Press w for previous page.\n");
-    printf("Press s for next page.\n");
-    printf("Press any other key to return to menu.\n");
+    printf("输入w向前一页。\n");
+    printf("输入s向后一页。\n");
+    printf("输入任意其他按键返回主界面。\n");
 }
 
 void FilePrompt()
