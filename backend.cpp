@@ -180,7 +180,7 @@ int OutputListToScreen(struct Book * head) {
         cnt++;
 
         if (cnt % 5 == 0 || cur->next == NULL) {
-            printf("Showing Item %d - %d.\n", PrevIndex(cnt), cnt);
+            printf("正在显示第 %d - %d 条记录.\n", PrevIndex(cnt), cnt);
             OutputPagePrompt();
             getchar();
             char opt = getchar();
@@ -227,7 +227,7 @@ int OutputListToScreen(struct Book * head) {
     }
 }
 
-    /*printf("Showing Item %d - %d.\n", cnt - (cnt % 5) + 1, cnt - 1);
+    /*printf("正在显示第 %d - %d 条记录.\n", cnt - (cnt % 5) + 1, cnt - 1);
     OutputPagePrompt();
     char opt = getchar();
     system("clear");
@@ -268,7 +268,7 @@ void OutputItem(FILE * fileW, struct Book * cur)
             cur->price);
 }
 
-int QueryByNo(FILE * fileW, struct Book * head, int No)
+int getBookByNo(FILE * fileW, struct Book * head, int No)
 {
     for (struct Book * cur = head; cur != NULL; cur = cur->next)
     {
