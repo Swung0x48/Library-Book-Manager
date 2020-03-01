@@ -19,8 +19,6 @@ int main()
     char fileop;
 
 
-		//printf("请输入初始数据（输入结束后请键入 0）\n");
-
 		if (READ() != NULL)
 		{
 			fp = READ();
@@ -43,22 +41,6 @@ int main()
 		}
 		// TODO : 如果不存在,要求用户用键盘输入数据。 否则，从文件读出数据。（ 调用 CreateList() ）
 
-		
-
-		/*if (fp == NULL)
-		{
-			head = CreateList(stdin);
-            //BubbleSortByNo(head, '<');
-		}
-		else
-		{
-			head = CreateList(fp);
-            //BubbleSortByNo(head, '<');
-		}*/
-		
-		
-		
-        //print_info();
 
 
     while (1)
